@@ -50,10 +50,10 @@ public class UserController {
   @ApiOperation(value = "${UserController.signup}")
   @ApiResponses(value = {//
       @ApiResponse(code = 400, message = "Something went wrong"), //
-      @ApiResponse(code = 403, message = "Access denied"), //
-      @ApiResponse(code = 422, message = "Username is already in use"), //
-      @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-  public String signup(@ApiParam("Signup User") @RequestBody UserDataDTO user) {
+  @ApiResponse(code = 403, message = "Access denied"), //
+  @ApiResponse(code = 422, message = "Username is already in use"), //
+  @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+  public String signup(@ApiParam("Signup User") @RequestBody User user) {
     return userService.signup(modelMapper.map(user, User.class));
   }
 
@@ -71,7 +71,6 @@ public class UserController {
   }
 
   @GetMapping(value = "/{username}")
-  @PreAuthorize("hasRole('ROLE_ADMIN')")
   @ApiOperation(value = "${UserController.search}", response = UserResponseDTO.class)
   @ApiResponses(value = {//
       @ApiResponse(code = 400, message = "Something went wrong"), //
