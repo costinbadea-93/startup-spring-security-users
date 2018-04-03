@@ -1,6 +1,9 @@
 package mainAPI.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -12,8 +15,18 @@ public class Event {
     private String eventDescription;
     private int freePlacesNumber;
 
+//    @ManyToOne
+//    private EventDate eventDate;
+    @ManyToMany(mappedBy = "events")
+    @JsonIgnore
+    private List<User> users;
+
     @ManyToOne
-    private EventDate eventDate;
+    private EventLocation eventLocation;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    @JsonIgnore
+    private List<EventReservation> eventReservation;
 
     public int getId() {
         return id;
@@ -46,13 +59,28 @@ public class Event {
     public void setFreePlacesNumber(int freePlacesNumber) {
         this.freePlacesNumber = freePlacesNumber;
     }
+//
+//    public EventDate getEventDate() {
+//        return eventDate;
+//    }
+//
+//    public void setEventDate(EventDate eventDate) {
+//        this.eventDate = eventDate;
+//    }
 
-    public EventDate getEventDate() {
-        return eventDate;
+    public EventLocation getEventLocation() {
+        return eventLocation;
     }
 
-    public void setEventDate(EventDate eventDate) {
-        this.eventDate = eventDate;
+    public void setEventLocation(EventLocation eventLocation) {
+        this.eventLocation = eventLocation;
     }
 
+    public List<EventReservation> getEventReservation() {
+        return eventReservation;
+    }
+
+    public void setEventReservation(List<EventReservation> eventReservation) {
+        this.eventReservation = eventReservation;
+    }
 }

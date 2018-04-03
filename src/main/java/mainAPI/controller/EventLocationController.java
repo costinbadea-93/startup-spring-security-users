@@ -1,35 +1,34 @@
 package mainAPI.controller;
 
 import io.swagger.annotations.*;
-import mainAPI.model.Event;
 import mainAPI.model.EventDate;
-import mainAPI.service.EventService;
+import mainAPI.model.EventLocation;
+import mainAPI.service.EventLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.*;
 
 /**
  * Created by cbadea on 4/2/2018.
  */
 @RestController
-@RequestMapping("/event")
-@Api("events")
-public class EventController {
+@RequestMapping("/eventLocation")
+@Api("eventLocation")
+public class EventLocationController {
 
     @Autowired
-    private EventService eventService;
+    EventLocationService eventLocationService;
 
-    @PostMapping(value = "/addEvent")
+    @PostMapping(value = "/addEventLocation")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${EventController.addEvent}", response = Event.class)
+    @ApiOperation(value = "${EventLocationController.addEventLocation}", response = EventDate.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public Event addEvent(@ApiParam("Add Event") @RequestBody Event event) {
-        return eventService.addEvent(event);
+    public EventLocation addEventDate(@ApiParam("Add EventDate") @RequestBody EventLocation eventLocation) {
+        return eventLocationService.addEventLocation(eventLocation);
     }
+
 
 }

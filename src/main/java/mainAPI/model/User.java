@@ -1,5 +1,7 @@
 package mainAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 import javax.persistence.*;
@@ -25,8 +27,17 @@ public class User {
   @ElementCollection(fetch = FetchType.EAGER)
   List<Role> roles;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  private EventDate eventDate;
+//  @ManyToOne
+//  private EventDate eventDate;
+
+  @ManyToMany
+  @JsonIgnore
+  private List<Event> events;
+
+
+  @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+  @JsonIgnore
+  private List<EventReservation> eventReservations;
 
   public Integer getId() {
     return id;

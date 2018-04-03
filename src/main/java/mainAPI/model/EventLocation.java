@@ -1,6 +1,8 @@
 package mainAPI.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,11 +16,13 @@ public class EventLocation {
     private Double latitudeValue;
     private Double longitudeValue;
 
-    @OneToOne
-    private EventDate eventDate;
+//    @OneToMany(mappedBy = "eventLocation")
+//    @JsonIgnore
+//    private List<EventDate> eventDate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Event> eventsList;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventLocation")
+    @JsonIgnore
+    private List<Event> events;
 
     public int getId() {
         return id;
@@ -44,19 +48,20 @@ public class EventLocation {
         this.longitudeValue = longitudeValue;
     }
 
-    public EventDate getEventDate() {
-        return eventDate;
+
+//    public List<EventDate> getEventDate() {
+//        return eventDate;
+//    }
+//
+//    public void setEventDate(List<EventDate> eventDate) {
+//        this.eventDate = eventDate;
+//    }
+
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public void setEventDate(EventDate eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public List<Event> getEventsList() {
-        return eventsList;
-    }
-
-    public void setEventsList(List<Event> eventsList) {
-        this.eventsList = eventsList;
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

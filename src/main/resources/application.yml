@@ -32,5 +32,13 @@ UserController:
   me: Returns current user's data
 
 EventController:
-  addEventDate: Add the date for specific events
   addEvent: Add a specific event
+
+EventDateController:
+  addEventDate: Add the date for specific events
+
+EventLocationController:
+  addEventLocation: Add a specific location for an event
+
+EventReservationController:
+  addEventReservation: Reserve a place to event

@@ -19,15 +19,14 @@ public class EventDateController {
     @Autowired
     private EventDateService eventDateService;
 
-
     @PostMapping(value = "/addEventDate")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${EventController.addEventDate}", response = EventDate.class)
+    @ApiOperation(value = "${EventDateController.addEventDate}", response = EventDate.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public EventDate addEventDate(@ApiParam("Add EventDate") @RequestBody EventDate eventDate) {
-        return eventDateService.addEventDate(eventDate);
+    public EventDate addEventDate(@ApiParam("Add EventDate") @RequestBody EventDate eventDate, @RequestParam int eventLocationId) {
+        return eventDateService.addEventDate(eventDate, eventLocationId);
     }
 }

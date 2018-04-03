@@ -17,13 +17,17 @@ public class EventDate {
 
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventDate")
-    @JsonIgnore
-    private List<Event> events;
+//    @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventDate")
+//    @JsonIgnore
+//    private List<Event> events;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventDate")
-    @JsonIgnore
-    private List<User> eventParticipants;
+//    @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventDate")
+//    @JsonIgnore
+//    private List<User> eventParticipants;
+
+    @ManyToOne
+    @JoinColumn(name="event_location_id", nullable=false)
+    private EventLocation eventLocation;
 
     public int getId() {
         return id;
@@ -33,22 +37,21 @@ public class EventDate {
         this.id = id;
     }
 
-    public List<User> getEventParticipants() {
-        return eventParticipants;
-    }
+//    public List<User> getEventParticipants() {
+//        return eventParticipants;
+//    }
+//
+//    public void setEventParticipants(List<User> eventParticipants) {
+//        this.eventParticipants = eventParticipants;
+//    }
 
-    public void setEventParticipants(List<User> eventParticipants) {
-        this.eventParticipants = eventParticipants;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
+//    public List<Event> getEvents() {
+//        return events;
+//    }
+//
+//    public void setEvents(List<Event> events) {
+//        this.events = events;
+//    }
 
     public Date getEventDate() {
         return eventDate;
@@ -65,4 +68,13 @@ public class EventDate {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public EventLocation getEventLocation() {
+        return eventLocation;
+    }
+
+    public void setEventLocation(EventLocation eventLocation) {
+        this.eventLocation = eventLocation;
+    }
+
 }
