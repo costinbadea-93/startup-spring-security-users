@@ -15,7 +15,15 @@ public class Event {
     private String eventDescription;
     private int freePlacesNumber;
 
-//    @ManyToOne
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    //    @ManyToOne
 //    private EventDate eventDate;
     @ManyToMany(mappedBy = "events")
     @JsonIgnore

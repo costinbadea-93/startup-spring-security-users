@@ -28,8 +28,8 @@ public class EventController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public Event addEvent(@ApiParam("Add Event") @RequestBody Event event) {
-        return eventService.addEvent(event);
+    public Event addEvent(@ApiParam("Add Event") @RequestBody Event event, @PathVariable(value = "userId", required = false) int userId ) {
+        return eventService.addEvent(event, userId);
     }
 
 }

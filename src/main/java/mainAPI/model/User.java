@@ -30,6 +30,22 @@ public class User {
 //  @ManyToOne
 //  private EventDate eventDate;
 
+  public List<Event> getEvents() {
+    return events;
+  }
+
+  public void setEvents(List<Event> events) {
+    this.events = events;
+  }
+
+  public List<EventReservation> getEventReservations() {
+    return eventReservations;
+  }
+
+  public void setEventReservations(List<EventReservation> eventReservations) {
+    this.eventReservations = eventReservations;
+  }
+
   @ManyToMany
   @JsonIgnore
   private List<Event> events;
