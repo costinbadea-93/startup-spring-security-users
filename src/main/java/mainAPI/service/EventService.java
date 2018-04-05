@@ -33,19 +33,7 @@ public class EventService {
     @Autowired
     UserRepository userRepository;
 
-    public Event addEvent(Event event, int userId) {
-//        EventDate eventDate = eventDateRepository.findById(eventDateId);
-//        List<Event> currentEventsList = eventDate.getEvents();
-//        currentEventsList.add(event);
-//        eventDate.setEvents(currentEventsList);
-
-//        EventLocation eventLocation = eventLocationRepository.findById(locationId);
-//        List<Event> currentEventsLocationList = eventLocation.getEvents();
-//        currentEventsLocationList.add(event);
-//        eventLocation.setEvents(currentEventsLocationList);
-
-//        event.setEventDate(eventDate);
-     //   event.setEventLocation(eventLocation);
+    public Event applyOnEvent(Event event, int userId, int locationId) {
         User user = userRepository.findOne(userId);
         List<Event> userEvents = user.getEvents();
         userEvents.add(event);
@@ -58,8 +46,14 @@ public class EventService {
         users.add(user);
         event.setUsers(users);
 
-        return eventRepository.save(event);
+        EventLocation eventLocation = eventLocationRepository.findById(locationId);
+        event.setEventLocation(eventLocation);
 
+        return eventRepository.save(event);
+    }
+
+    public Event addEvent(Event event) {
+        return eventRepository.save(event);
     }
 }
 

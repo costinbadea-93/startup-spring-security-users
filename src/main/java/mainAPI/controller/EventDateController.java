@@ -27,6 +27,7 @@ public class EventDateController {
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public EventDate addEventDate(@ApiParam("Add EventDate") @RequestBody EventDate eventDate, @RequestParam int eventLocationId) {
+
         return eventDateService.addEventDate(eventDate, eventLocationId);
     }
 }

@@ -33,6 +33,7 @@ UserController:
 
 EventController:
   addEvent: Add a specific event
+  applyOnEvent: Apply as user for an event
 
 EventDateController:
   addEventDate: Add the date for specific events
