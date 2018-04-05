@@ -17,7 +17,10 @@ spring:
         format_sql: true
         id:
           new_generator_mappings: false
-          
+logging:
+  level:
+    org.springframework.web: DEBUG
+
 security:
   jwt:
     token:
@@ -34,12 +37,14 @@ UserController:
 EventController:
   addEvent: Add a specific event
   applyOnEvent: Apply as user for an event
+  deleteEvent: Delete a specific event
 
 EventDateController:
   addEventDate: Add the date for specific events
 
 EventLocationController:
   addEventLocation: Add a specific location for an event
+  deleteEventLocation: Delete a specific event
 
 EventReservationController:
   addEventReservation: Reserve a place to event

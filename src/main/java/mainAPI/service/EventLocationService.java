@@ -17,4 +17,10 @@ public class EventLocationService {
     public EventLocation addEventLocation(EventLocation eventLocation) {
         return eventLocationRepository.save(eventLocation);
     }
+
+    public void deleteEventLocation(int eventLocationId) {
+        EventLocation eventLocation = eventLocationRepository.findById(eventLocationId);
+        eventLocationRepository.delete(eventLocation);
+
+    }
 }

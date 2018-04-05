@@ -29,7 +29,7 @@ public class Event {
     @JsonIgnore
     private List<User> users;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private EventLocation eventLocation;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")

@@ -20,7 +20,7 @@ public class EventLocation {
 //    @JsonIgnore
 //    private List<EventDate> eventDate;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventLocation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventLocation", orphanRemoval=true)
     @JsonIgnore
     private List<Event> events;
 

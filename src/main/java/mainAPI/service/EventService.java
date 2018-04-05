@@ -10,6 +10,7 @@ import mainAPI.repository.EventRepository;
 import mainAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class EventService {
 
     @Autowired
@@ -54,6 +56,11 @@ public class EventService {
 
     public Event addEvent(Event event) {
         return eventRepository.save(event);
+    }
+
+    public void deleteEvent(int eventId) {
+        Event event =  eventRepository.findOne(eventId);
+        eventRepository.delete(event);
     }
 }
 

@@ -7,6 +7,7 @@ import mainAPI.service.EventLocationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class EventLocationController {
 
     @PostMapping(value = "/addEventLocation")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${EventLocationController.addEventLocation}", response = EventDate.class)
+    @ApiOperation(value = "${EventLocationController.addEventLocation}", response = EventLocation.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
@@ -38,9 +39,21 @@ public class EventLocationController {
 
         EventLocation addedEvent = eventLocationService.addEventLocation(eventLocation);
         URI location = URI.create("eventLocation/addEventLocation" + addedEvent.getId());
-        LOGGER.debug("EventLocation added URI: " + location);
+        LOGGER.warn("EventLocation added URI: " + location);
         return ResponseEntity.created(location).body(addedEvent.getId());
     }
 
+    @DeleteMapping(value = "/deleteEventLocation")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${EventLocationController.deleteEventLocation}", response = EventLocation.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public ResponseEntity<?> deleteEventLocation(@ApiParam("EventLocationId") @RequestParam(value = "eventLocationId") int eventLocationId) {
+        eventLocationService.deleteEventLocation(eventLocationId);
+        LOGGER.warn("Deleted EventLocation with id: " + eventLocationId);
+        return ResponseEntity.ok().body(eventLocationId);
+    }
 
 }

@@ -63,4 +63,17 @@ public class EventController {
         return ResponseEntity.created(location).body(addedEvent.getId());
     }
 
+    @DeleteMapping(value = "/deleteEvent")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${EventController.deleteEvent}", response = Event.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public ResponseEntity<?> deleteEvent(@ApiParam("EventId") @RequestParam(value = "eventId") int eventId) {
+        eventService.deleteEvent(eventId);
+        LOGGER.warn("Deleted Event with id: " + eventId);
+        return ResponseEntity.ok().body(eventId);
+    }
+
 }
