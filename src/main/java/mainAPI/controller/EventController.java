@@ -29,7 +29,7 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping(value = "/applyOnEvent")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "${EventController.applyOnEvent}", response = Event.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //

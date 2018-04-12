@@ -1,5 +1,8 @@
 package mainAPI.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 import javax.persistence.*;
@@ -24,15 +27,16 @@ public class Event {
     }
 
     //    @ManyToOne
-//    private EventDate eventDate;
-    @ManyToMany(mappedBy = "events")
+//  private EventDate eventDate;
+    @ManyToMany(mappedBy = "events",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<User> users;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "LOCATION_ID")
     private EventLocation eventLocation;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    @OneToMany( mappedBy = "event")
     @JsonIgnore
     private List<EventReservation> eventReservation;
 

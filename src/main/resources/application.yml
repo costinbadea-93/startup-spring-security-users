@@ -17,9 +17,9 @@ spring:
         format_sql: true
         id:
           new_generator_mappings: false
-logging:
-  level:
-    org.springframework.web: DEBUG
+#logging:
+#  level:
+#    org.springframework.web: DEBUG
 
 security:
   jwt:

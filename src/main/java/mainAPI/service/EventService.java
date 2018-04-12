@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 @Service
-@Transactional
 public class EventService {
 
     @Autowired

@@ -2,6 +2,9 @@ package mainAPI.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 public class EventLocation {
 
     @Id
+    @Column(name = "LOCATION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -20,7 +24,7 @@ public class EventLocation {
 //    @JsonIgnore
 //    private List<EventDate> eventDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventLocation", orphanRemoval=true)
+    @OneToMany( mappedBy = "eventLocation", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Event> events;
 
