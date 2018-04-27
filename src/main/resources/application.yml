@@ -20,7 +20,8 @@ spring:
 #logging:
 #  level:
 #    org.springframework.web: DEBUG
-
+server:
+  port: 9000
 security:
   jwt:
     token:

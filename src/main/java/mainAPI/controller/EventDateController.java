@@ -1,7 +1,7 @@
 package mainAPI.controller;
 
 import io.swagger.annotations.*;
-import mainAPI.model.EventDate;
+import mainAPI.model.RegistrationEvent;
 import mainAPI.service.EventDateService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +21,13 @@ public class EventDateController {
 
     @PostMapping(value = "/addEventDate")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${EventDateController.addEventDate}", response = EventDate.class)
+    @ApiOperation(value = "${EventDateController.addEventDate}", response = RegistrationEvent.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public EventDate addEventDate(@ApiParam("Add EventDate") @RequestBody EventDate eventDate, @RequestParam int eventLocationId) {
+    public RegistrationEvent addEventDate(@ApiParam("Add RegistrationEvent") @RequestBody RegistrationEvent registrationEvent, @RequestParam int eventLocationId) {
 
-        return eventDateService.addEventDate(eventDate, eventLocationId);
+        return eventDateService.addEventDate(registrationEvent, eventLocationId);
     }
 }

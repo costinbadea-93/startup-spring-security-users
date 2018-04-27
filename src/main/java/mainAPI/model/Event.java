@@ -1,8 +1,4 @@
 package mainAPI.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 
 import javax.persistence.*;
@@ -18,27 +14,12 @@ public class Event {
     private String eventDescription;
     private int freePlacesNumber;
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    //    @ManyToOne
-//  private EventDate eventDate;
-    @ManyToMany(mappedBy = "events",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<User> users;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
+    private List<RegistrationEvent> registrationEvent;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LOCATION_ID")
     private EventLocation eventLocation;
-
-    @OneToMany( mappedBy = "event")
-    @JsonIgnore
-    private List<EventReservation> eventReservation;
 
     public int getId() {
         return id;
@@ -71,14 +52,14 @@ public class Event {
     public void setFreePlacesNumber(int freePlacesNumber) {
         this.freePlacesNumber = freePlacesNumber;
     }
-//
-//    public EventDate getEventDate() {
-//        return eventDate;
-//    }
-//
-//    public void setEventDate(EventDate eventDate) {
-//        this.eventDate = eventDate;
-//    }
+
+    public List<RegistrationEvent> getRegistrationEvent() {
+        return registrationEvent;
+    }
+
+    public void setRegistrationEvent(List<RegistrationEvent> registrationEvent) {
+        this.registrationEvent = registrationEvent;
+    }
 
     public EventLocation getEventLocation() {
         return eventLocation;
@@ -88,11 +69,4 @@ public class Event {
         this.eventLocation = eventLocation;
     }
 
-    public List<EventReservation> getEventReservation() {
-        return eventReservation;
-    }
-
-    public void setEventReservation(List<EventReservation> eventReservation) {
-        this.eventReservation = eventReservation;
-    }
 }

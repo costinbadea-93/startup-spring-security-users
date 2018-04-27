@@ -1,13 +1,11 @@
 package mainAPI.controller;
 
 import io.swagger.annotations.*;
-import mainAPI.model.EventDate;
 import mainAPI.model.EventLocation;
 import mainAPI.service.EventLocationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +33,7 @@ public class EventLocationController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public ResponseEntity<?> addEventDate(@ApiParam("Add EventDate") @RequestBody EventLocation eventLocation) {
+    public ResponseEntity<?> addEventDate(@ApiParam("Add RegistrationEvent") @RequestBody EventLocation eventLocation) {
 
         EventLocation addedEvent = eventLocationService.addEventLocation(eventLocation);
         URI location = URI.create("eventLocation/addEventLocation" + addedEvent.getId());

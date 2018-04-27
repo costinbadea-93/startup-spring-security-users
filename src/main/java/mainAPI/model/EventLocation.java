@@ -22,7 +22,7 @@ public class EventLocation {
 
 //    @OneToMany(mappedBy = "eventLocation")
 //    @JsonIgnore
-//    private List<EventDate> eventDate;
+//    private List<RegistrationEvent> eventDate;
 
     @OneToMany( mappedBy = "eventLocation", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -53,11 +53,11 @@ public class EventLocation {
     }
 
 
-//    public List<EventDate> getEventDate() {
+//    public List<RegistrationEvent> getRegistrationEvent() {
 //        return eventDate;
 //    }
 //
-//    public void setEventDate(List<EventDate> eventDate) {
+//    public void setRegistrationEvent(List<RegistrationEvent> eventDate) {
 //        this.eventDate = eventDate;
 //    }
 

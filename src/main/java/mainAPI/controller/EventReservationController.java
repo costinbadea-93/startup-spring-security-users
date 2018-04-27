@@ -1,8 +1,6 @@
 package mainAPI.controller;
 
 import io.swagger.annotations.*;
-import mainAPI.model.EventDate;
-import mainAPI.model.EventLocation;
 import mainAPI.model.EventReservation;
 import mainAPI.service.EventReservationService;
 import org.slf4j.Logger;

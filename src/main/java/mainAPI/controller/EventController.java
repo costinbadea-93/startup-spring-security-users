@@ -2,7 +2,6 @@ package mainAPI.controller;
 
 import io.swagger.annotations.*;
 import mainAPI.model.Event;
-import mainAPI.model.EventDate;
 import mainAPI.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
 import java.net.URI;
 
 /**
@@ -54,9 +52,10 @@ public class EventController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public ResponseEntity<?> addEvent(@ApiParam("Add Event") @RequestBody Event event) {
+    public ResponseEntity<?> addEvent(@ApiParam("Add Event") @RequestBody Event event,
+                                      @ApiParam("LocationId") @RequestParam(value = "locationId") int locationId) {
 
-        Event addedEvent = eventService.addEvent(event);
+        Event addedEvent = eventService.addEvent(event, locationId);
         URI location = URI.create("event/applyOnEvent" + addedEvent.getId());
         LOGGER.debug("Event added URI: " + location);
 

@@ -27,15 +27,15 @@ public class User {
   @ElementCollection(fetch = FetchType.EAGER)
   List<Role> roles;
 
-//  @ManyToOne
-//  private EventDate eventDate;
+  @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventParticipant")
+  private List<RegistrationEvent> registrationEvent;
 
-  public List<Event> getEvents() {
-    return events;
+  public List<RegistrationEvent> getRegistrationEvent() {
+    return registrationEvent;
   }
 
-  public void setEvents(List<Event> events) {
-    this.events = events;
+  public void setRegistrationEvent(List<RegistrationEvent> registrationEvent) {
+    this.registrationEvent = registrationEvent;
   }
 
   public List<EventReservation> getEventReservations() {
@@ -45,11 +45,6 @@ public class User {
   public void setEventReservations(List<EventReservation> eventReservations) {
     this.eventReservations = eventReservations;
   }
-
-  @ManyToMany
-  @JsonIgnore
-  private List<Event> events;
-
 
   @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
   @JsonIgnore
