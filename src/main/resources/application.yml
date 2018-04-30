@@ -38,10 +38,6 @@ UserController:
 EventController:
   addEvent: Add a specific event
   applyOnEvent: Apply as user for an event
-  deleteEvent: Delete a specific event
-
-EventDateController:
-  addEventDate: Add the date for specific events
 
 EventLocationController:
   addEventLocation: Add a specific location for an event
@@ -49,3 +45,4 @@ EventLocationController:
 
 EventReservationController:
   addEventReservation: Reserve a place to event
+  deleteEventReservation: Delete a specific reservation

@@ -37,4 +37,11 @@ public class EventReservationService {
 
         return eventReservationRepository.save(eventReservation);
     }
+
+    public void deleteEventReservation(int eventReservationId) {
+        EventReservation eventReservation =  eventReservationRepository.findOne(eventReservationId);
+        eventReservationRepository.delete(eventReservation);
+    }
+
+
 }

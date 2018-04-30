@@ -27,17 +27,6 @@ public class User {
   @ElementCollection(fetch = FetchType.EAGER)
   List<Role> roles;
 
-  @OneToMany(cascade = CascadeType.ALL,mappedBy = "eventParticipant")
-  private List<RegistrationEvent> registrationEvent;
-
-  public List<RegistrationEvent> getRegistrationEvent() {
-    return registrationEvent;
-  }
-
-  public void setRegistrationEvent(List<RegistrationEvent> registrationEvent) {
-    this.registrationEvent = registrationEvent;
-  }
-
   public List<EventReservation> getEventReservations() {
     return eventReservations;
   }

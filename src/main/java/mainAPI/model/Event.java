@@ -14,9 +14,6 @@ public class Event {
     private String eventDescription;
     private int freePlacesNumber;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "event")
-    private List<RegistrationEvent> registrationEvent;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LOCATION_ID")
     private EventLocation eventLocation;
@@ -51,14 +48,6 @@ public class Event {
 
     public void setFreePlacesNumber(int freePlacesNumber) {
         this.freePlacesNumber = freePlacesNumber;
-    }
-
-    public List<RegistrationEvent> getRegistrationEvent() {
-        return registrationEvent;
-    }
-
-    public void setRegistrationEvent(List<RegistrationEvent> registrationEvent) {
-        this.registrationEvent = registrationEvent;
     }
 
     public EventLocation getEventLocation() {
