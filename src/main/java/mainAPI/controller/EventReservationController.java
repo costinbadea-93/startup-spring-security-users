@@ -47,7 +47,7 @@ public class EventReservationController {
 
     @DeleteMapping(value = "/deleteEventReservation")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @ApiOperation(value = "${EventController.deleteReservation}", response = EventReservation.class)
+    @ApiOperation(value = "${EventReservationController.deleteReservation}", response = EventReservation.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //

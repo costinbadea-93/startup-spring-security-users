@@ -10,6 +10,8 @@ import mainAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by cbadea on 4/2/2018.
  */
@@ -46,6 +48,10 @@ public class EventService {
     public void deleteEvent(int eventId) {
         Event event =  eventRepository.findOne(eventId);
         eventRepository.delete(event);
+    }
+
+    public List<Event> getEvents() {
+        return eventRepository.findAll();
     }
 }
 
