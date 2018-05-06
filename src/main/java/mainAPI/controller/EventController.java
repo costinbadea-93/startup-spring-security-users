@@ -79,4 +79,17 @@ public class EventController {
         List<Event> events = eventService.getEvents();
         return events;
     }
+
+    @CrossOrigin("http://127.0.0.1:4200/")
+    @GetMapping(value = "/getEvent/{eventId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${EventController.getEvent}", response = Event.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public Event getEvent(@ApiParam("EventId") @PathVariable(value = "eventId") int eventId){
+        Event event = eventService.getSpecificEvent(eventId);
+        return event;
+    }
 }

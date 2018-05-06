@@ -53,5 +53,9 @@ public class EventService {
     public List<Event> getEvents() {
         return eventRepository.findAll();
     }
+
+    public Event getSpecificEvent(int eventId) {
+        return eventRepository.findOne(eventId);
+    }
 }
 
