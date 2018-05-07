@@ -1,7 +1,7 @@
 package mainAPI.model;
 
-
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,6 +12,9 @@ public class Event {
     private int id;
     private String eventName;
     private String eventDescription;
+    private String category;
+    private Date eventDate;
+    private String startTime;
     private int freePlacesNumber;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -56,6 +59,30 @@ public class Event {
 
     public void setEventLocation(EventLocation eventLocation) {
         this.eventLocation = eventLocation;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Date getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
 }
