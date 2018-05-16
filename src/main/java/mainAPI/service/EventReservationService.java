@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by cbadea on 4/3/2018.
@@ -34,6 +36,13 @@ public class EventReservationService {
         Event event = eventRepository.findOne(eventId);
         eventReservation.setUser(user);
         eventReservation.setEvent(event);
+
+        List<EventReservation> validationList = eventReservationRepository.findAll().stream()
+                .filter(rez -> rez.getEvent().getId() == event.getId())
+                .collect(Collectors.toList());
+
+
+
 
         return eventReservationRepository.save(eventReservation);
     }

@@ -17,6 +17,7 @@ import java.net.URI;
  * Created by cbadea on 4/3/2018.
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/eventReservation")
 @Api("eventReservation")
 public class EventReservationController {
