@@ -1,12 +1,14 @@
 package mainAPI.controller;
 
 import io.swagger.annotations.*;
+import mainAPI.exception.CustomException;
 import mainAPI.model.Event;
 import mainAPI.model.EventReservation;
 import mainAPI.service.EventReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -38,12 +40,12 @@ public class EventReservationController {
     public ResponseEntity<?> addEventReservation(@ApiParam("Add EventReservation") @RequestBody EventReservation eventReservation,
                                               @ApiParam("UserId") @RequestParam(value = "userId") int userId,
                                               @ApiParam("EventId") @RequestParam(value = "eventId") int eventId) {
-
+       try {
         EventReservation eventReservationSaved = eventReservationService.addEventReservation(eventReservation, userId, eventId);
-
-        URI location = URI.create("/eventReservation/addEventReservation/" + eventReservationSaved.getId());
-        LOGGER.debug("EventReservation creation URI: " + location);
-        return ResponseEntity.created(location).body(eventReservationSaved.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(eventId);
+       } catch(CustomException e) {
+           return ResponseEntity.status(e.getHttpStatus()).body(e.getMessage());
+       }
     }
 
     @DeleteMapping(value = "/deleteEventReservation")
