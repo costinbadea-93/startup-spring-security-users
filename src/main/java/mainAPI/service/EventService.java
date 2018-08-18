@@ -8,8 +8,11 @@ import mainAPI.repository.EventRepository;
 import mainAPI.repository.EventReservationRepository;
 import mainAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -17,6 +20,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional
 public class EventService {
 
     @Autowired
@@ -50,12 +54,18 @@ public class EventService {
         eventRepository.delete(event);
     }
 
-    public List<Event> getEvents() {
-        return eventRepository.findAll();
+    public Page<Event> getEvents(Pageable pageable) {
+        return eventRepository.findAll(pageable);
     }
 
     public Event getSpecificEvent(int eventId) {
         return eventRepository.findOne(eventId);
+    }
+
+    public Event rateEvent(int eventId){
+        Event event =  eventRepository.findOne(eventId);
+        event.setNumberOfLikes(event.getNumberOfLikes() + 1);
+        return event;
     }
 }
 

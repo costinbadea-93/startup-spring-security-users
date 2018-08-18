@@ -13,6 +13,8 @@ public class Event {
     private String eventName;
     private String eventDescription;
     private int freePlacesNumber;
+    private String category;
+    private int numberOfLikes = 0;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LOCATION_ID")
@@ -56,6 +58,22 @@ public class Event {
 
     public void setEventLocation(EventLocation eventLocation) {
         this.eventLocation = eventLocation;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getNumberOfLikes() {
+        return numberOfLikes;
+    }
+
+    public void setNumberOfLikes(int numberOfLikes) {
+        this.numberOfLikes = numberOfLikes;
     }
 
 }

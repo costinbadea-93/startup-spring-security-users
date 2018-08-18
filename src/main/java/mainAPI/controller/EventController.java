@@ -6,6 +6,8 @@ import mainAPI.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -75,8 +77,8 @@ public class EventController {
             @ApiResponse(code = 400, message = "Something went wrong"), //
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-    public List<Event> getEvents(){
-        List<Event> events = eventService.getEvents();
+    public Page<Event> getEvents(Pageable pageable){
+        Page<Event> events = eventService.getEvents(pageable);
         return events;
     }
 
@@ -91,5 +93,18 @@ public class EventController {
     public Event getEvent(@ApiParam("EventId") @PathVariable(value = "eventId") int eventId){
         Event event = eventService.getSpecificEvent(eventId);
         return event;
+    }
+
+    @CrossOrigin("http://127.0.0.1:4200/")
+    @PostMapping(value = "/rateEvent/{eventId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${EventController.rateEvent}", response = Event.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public ResponseEntity rateEvent(@ApiParam("EventId") @PathVariable(value = "eventId") int eventId){
+        Event event = eventService.rateEvent(eventId);
+        return ResponseEntity.ok(event);
     }
 }
