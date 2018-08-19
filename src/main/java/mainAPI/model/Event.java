@@ -62,4 +62,38 @@ public class Event {
         this.eventLocation = eventLocation;
     }
 
+
+    public Date getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getNumberOfLikes() {
+        return numberOfLikes;
+    }
+
+    public void setNumberOfLikes(int numberOfLikes) {
+        this.numberOfLikes = numberOfLikes;
+    }
+
+
 }
