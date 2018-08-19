@@ -2,6 +2,7 @@ package mainAPI.service;
 
 import io.swagger.annotations.Authorization;
 
+import mainAPI.exception.CustomException;
 import mainAPI.model.Event;
 import mainAPI.model.EventReservation;
 import mainAPI.model.User;
@@ -9,9 +10,12 @@ import mainAPI.repository.EventRepository;
 import mainAPI.repository.EventReservationRepository;
 import mainAPI.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by cbadea on 4/3/2018.
@@ -34,6 +38,15 @@ public class EventReservationService {
         Event event = eventRepository.findOne(eventId);
         eventReservation.setUser(user);
         eventReservation.setEvent(event);
+
+        List<EventReservation> validationList = eventReservationRepository.findAll().stream()
+                .filter(rez -> rez.getEvent().getId() == event.getId())
+                .collect(Collectors.toList());
+
+        if(validationList.size() > 0) {
+            throw new CustomException("You have alrady applyed on this event !", HttpStatus.CONFLICT);
+        }
+
 
         return eventReservationRepository.save(eventReservation);
     }
