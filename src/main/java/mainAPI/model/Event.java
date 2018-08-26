@@ -12,7 +12,7 @@ public class Event {
     private int id;
     private String eventName;
     private String eventDescription;
-    private Date eventDate;
+    private String eventDate;
     private String startTime;
     private int freePlacesNumber;
     private String category;
@@ -63,14 +63,6 @@ public class Event {
     }
 
 
-    public Date getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
-
     public String getStartTime() {
         return startTime;
     }
@@ -95,5 +87,11 @@ public class Event {
         this.numberOfLikes = numberOfLikes;
     }
 
+    public String getEventDate() {
+        return eventDate;
+    }
 
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
 }

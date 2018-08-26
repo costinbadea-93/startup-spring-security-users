@@ -17,6 +17,7 @@ public class EventLocation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String locationAddress;
     private Double latitudeValue;
     private Double longitudeValue;
 
@@ -67,5 +68,13 @@ public class EventLocation {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public String getLocationAddress() {
+        return locationAddress;
+    }
+
+    public void setLocationAddress(String locationAddress) {
+        this.locationAddress = locationAddress;
     }
 }

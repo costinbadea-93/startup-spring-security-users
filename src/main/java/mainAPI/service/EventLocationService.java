@@ -5,6 +5,8 @@ import mainAPI.repository.EventLocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by cbadea on 4/2/2018.
  */
@@ -22,5 +24,9 @@ public class EventLocationService {
         EventLocation eventLocation = eventLocationRepository.findById(eventLocationId);
         eventLocationRepository.delete(eventLocation);
 
+    }
+
+    public List<EventLocation> getLocations() {
+        return eventLocationRepository.findAll();
     }
 }
