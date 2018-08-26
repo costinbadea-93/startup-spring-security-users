@@ -50,14 +50,18 @@ public class UserController {
   }
 
   @PostMapping("/signup")
+  @CrossOrigin("http://127.0.0.1:4200/")
   @ApiOperation(value = "${UserController.signup}")
   @ApiResponses(value = {//
       @ApiResponse(code = 400, message = "Something went wrong"), //
   @ApiResponse(code = 403, message = "Access denied"), //
   @ApiResponse(code = 422, message = "Username is already in use"), //
   @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
-  public String signup(@ApiParam("Signup User") @RequestBody User user) {
-    return userService.signup(modelMapper.map(user, User.class));
+  public ObjectNode signup(@ApiParam("Signup User") @RequestBody User user) {
+    ObjectNode accessToken = mapper.createObjectNode();
+    accessToken.put("value", userService.signup(modelMapper.map(user, User.class)));
+    return accessToken;
+    //return userService.signup(modelMapper.map(user, User.class));
   }
 
   @DeleteMapping(value = "/{username}")
