@@ -1,7 +1,10 @@
 package mainAPI.controller;
 
 import io.swagger.annotations.*;
+import mainAPI.dto.AddReviewRequestDto;
+import mainAPI.dto.ReviewDto;
 import mainAPI.model.Event;
+import mainAPI.model.User;
 import mainAPI.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,5 +109,45 @@ public class EventController {
     public ResponseEntity rateEvent(@ApiParam("EventId") @PathVariable(value = "eventId") int eventId){
         Event event = eventService.rateEvent(eventId);
         return ResponseEntity.ok(event);
+    }
+
+
+    @CrossOrigin("http://127.0.0.1:4200/")
+    @PostMapping(value = "/getReviews/{eventId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${EventController.getReviwes}", response = Event.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public List<ReviewDto> getEventReviews(@PathVariable int eventId, @RequestBody User user){
+
+        List<ReviewDto> reviews = eventService.getReviwes(eventId, user);
+        return reviews;
+    }
+
+    @CrossOrigin("http://127.0.0.1:4200/")
+    @PostMapping(value = "/addReview")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${EventController.addReview}", response = Event.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public ReviewDto addReview(@RequestBody AddReviewRequestDto request){
+
+       return  eventService.addReview(request.getReviewDto(), request.getUser());
+    }
+
+    @CrossOrigin("http://127.0.0.1:4200/")
+    @PostMapping(value = "/deleteReview/{reviewId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ApiOperation(value = "${EventController.deleteReview}", response = Event.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public String deleteReview(@PathVariable int reviewId, @RequestBody User user){
+         return  eventService.deleteReview(reviewId, user);
     }
 }

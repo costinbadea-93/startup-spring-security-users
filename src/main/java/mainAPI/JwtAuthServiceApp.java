@@ -2,7 +2,10 @@ package mainAPI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import mainAPI.dto.ReviewDto;
+import org.hibernate.validator.internal.util.TypeHelper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +16,13 @@ import org.springframework.context.annotation.Bean;
 import mainAPI.model.Role;
 import mainAPI.model.User;
 import mainAPI.service.UserService;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @SpringBootApplication
 public class JwtAuthServiceApp implements CommandLineRunner {
@@ -31,6 +41,7 @@ public class JwtAuthServiceApp implements CommandLineRunner {
 
   @Override
   public void run(String... params) throws Exception {
+
 //    User admin = new User();
 //    admin.setUsername("admin");
 //    admin.setPassword("admin");
