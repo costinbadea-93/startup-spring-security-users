@@ -56,5 +56,11 @@ public class EventReservationService {
         eventReservationRepository.delete(eventReservation);
     }
 
+    public List<EventReservation> getReservations(int userId){
+        return eventReservationRepository.findAll()
+                .stream()
+                .filter(eventRes -> eventRes.getUser().getId() == userId)
+                .collect(Collectors.toList());
+    }
 
 }

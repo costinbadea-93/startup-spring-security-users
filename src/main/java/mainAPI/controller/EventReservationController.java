@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Created by cbadea on 4/3/2018.
@@ -31,7 +32,7 @@ public class EventReservationController {
     EventReservationService eventReservationService;
 
     @PostMapping(value = "/addEventReservation")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${EventReservationController.addEventReservation}", response = EventReservation.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
@@ -59,5 +60,17 @@ public class EventReservationController {
         eventReservationService.deleteEventReservation(eventReservationId);
         LOGGER.warn("Deleted Event with id: " + eventReservationId);
         return ResponseEntity.ok().body(eventReservationId);
+    }
+
+
+    @GetMapping(value = "/getReservations/{userId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    @ApiOperation(value = "${EventReservationController.getReservations}", response = EventReservation.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public List<EventReservation> getReservations(@PathVariable(value = "userId") int userId) {
+       return eventReservationService.getReservations(userId);
     }
 }

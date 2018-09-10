@@ -1,5 +1,9 @@
 package mainAPI.service;
 
+import com.twilio.sdk.TwilioRestClient;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sdk.resource.factory.MessageFactory;
+import com.twilio.sdk.resource.instance.Message;
 import mainAPI.dto.ReviewDto;
 import mainAPI.model.Event;
 import mainAPI.model.EventLocation;
@@ -9,17 +13,26 @@ import mainAPI.repository.EventRepository;
 import mainAPI.repository.EventReservationRepository;
 import mainAPI.repository.UserRepository;
 import mainAPI.security.JwtTokenProvider;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.apache.http.NameValuePair;
 
+import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.twilio.sdk.examples.RestExamples.ACCOUNT_SID;
+import static com.twilio.sdk.examples.RestExamples.AUTH_TOKEN;
 
 /**
  * Created by cbadea on 4/2/2018.
@@ -47,6 +60,9 @@ public class EventService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private JavaMailSender sender;
+
     public Event applyOnEvent(Event event, int userId, int locationId) {
         User user = userRepository.findOne(userId);
         EventLocation eventLocation = eventLocationRepository.findById(locationId);
@@ -58,6 +74,12 @@ public class EventService {
     public Event addEvent(Event event, int locationId) {
         EventLocation el = eventLocationRepository.findById(locationId);
         event.setEventLocation(el);
+        return eventRepository.save(event);
+    }
+
+    public Event updateEvent(Event event, int locationId) {
+        //EventLocation el = eventLocationRepository.findById(locationId);
+       // event.setEventLocation(el);
         return eventRepository.save(event);
     }
 
@@ -159,5 +181,18 @@ public class EventService {
 
        return result;
    }
+
+    public void sendEmail(String email) throws Exception{
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setTo(email);
+        helper.setText("How are you?");
+        helper.setSubject("Hi");
+
+        sender.send(message);
+    }
+
+
 }
 

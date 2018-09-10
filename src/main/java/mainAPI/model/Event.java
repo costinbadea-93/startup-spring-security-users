@@ -1,5 +1,7 @@
 package mainAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +20,13 @@ public class Event {
     private String category;
     private int numberOfLikes = 0;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "LOCATION_ID")
     private EventLocation eventLocation;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<EventReservation> eventReservations;
 
     public int getId() {
         return id;
@@ -46,22 +52,13 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public int getFreePlacesNumber() {
-        return freePlacesNumber;
+    public String getEventDate() {
+        return eventDate;
     }
 
-    public void setFreePlacesNumber(int freePlacesNumber) {
-        this.freePlacesNumber = freePlacesNumber;
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
-
-    public EventLocation getEventLocation() {
-        return eventLocation;
-    }
-
-    public void setEventLocation(EventLocation eventLocation) {
-        this.eventLocation = eventLocation;
-    }
-
 
     public String getStartTime() {
         return startTime;
@@ -69,6 +66,14 @@ public class Event {
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public int getFreePlacesNumber() {
+        return freePlacesNumber;
+    }
+
+    public void setFreePlacesNumber(int freePlacesNumber) {
+        this.freePlacesNumber = freePlacesNumber;
     }
 
     public String getCategory() {
@@ -87,11 +92,19 @@ public class Event {
         this.numberOfLikes = numberOfLikes;
     }
 
-    public String getEventDate() {
-        return eventDate;
+    public EventLocation getEventLocation() {
+        return eventLocation;
     }
 
-    public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
+    public void setEventLocation(EventLocation eventLocation) {
+        this.eventLocation = eventLocation;
+    }
+
+    public List<EventReservation> getEventReservations() {
+        return eventReservations;
+    }
+
+    public void setEventReservations(List<EventReservation> eventReservations) {
+        this.eventReservations = eventReservations;
     }
 }

@@ -35,7 +35,7 @@ public class User {
     this.eventReservations = eventReservations;
   }
 
-  @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+  @OneToMany(mappedBy = "user")
   @JsonIgnore
   private List<EventReservation> eventReservations;
 

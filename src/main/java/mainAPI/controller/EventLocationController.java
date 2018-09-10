@@ -29,7 +29,7 @@ public class EventLocationController {
     EventLocationService eventLocationService;
 
     @PostMapping(value = "/addEventLocation")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
     @ApiOperation(value = "${EventLocationController.addEventLocation}", response = EventLocation.class)
     @ApiResponses(value = {//
             @ApiResponse(code = 400, message = "Something went wrong"), //
@@ -65,8 +65,6 @@ public class EventLocationController {
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public List<EventLocation> getEventLocations() {
-
         return eventLocationService.getLocations();
     }
-
 }

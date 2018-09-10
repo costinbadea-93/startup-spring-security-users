@@ -21,10 +21,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @SpringBootApplication
+@EnableScheduling
 public class JwtAuthServiceApp implements CommandLineRunner {
 
   @Autowired
