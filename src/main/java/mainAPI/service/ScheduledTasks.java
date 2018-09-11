@@ -67,7 +67,7 @@ public class ScheduledTasks {
                 if(eventDate.getMonth() == newDateCreated.getMonth() && eventDate.getYear() == newDateCreated.getYear()
                         && eventDate.getDay() - newDateCreated.getDay() == 1) {
                     try {
-                        eventService.sendEmail(u.getEmail());
+                        eventService.sendEmail(u.getEmail(),"ss","ss");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

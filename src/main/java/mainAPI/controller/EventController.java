@@ -186,12 +186,31 @@ public class EventController {
             @ApiResponse(code = 403, message = "Access denied"), //
             @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
     public ResponseEntity<?> updateEvent(@ApiParam("Update Event") @RequestBody Event event,
-                                      @ApiParam("LocationId") @RequestParam(value = "locationId") int locationId) {
+                                         @ApiParam("LocationId") @RequestParam(value = "locationId") int locationId) {
 
         Event updateEvent = eventService.updateEvent(event, locationId);
         URI location = URI.create("event/applyOnEvent" + updateEvent.getId());
         LOGGER.debug("Event added URI: " + location);
 
         return ResponseEntity.created(location).body(updateEvent.getId());
+    }
+
+    @PostMapping(value = "/contactAdmin")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+    @ApiOperation(value = "${EventController.contactAdmin}", response = String.class)
+    @ApiResponses(value = {//
+            @ApiResponse(code = 400, message = "Something went wrong"), //
+            @ApiResponse(code = 403, message = "Access denied"), //
+            @ApiResponse(code = 500, message = "Expired or invalid JWT token")})
+    public ResponseEntity<?> contactAdmin(@RequestParam String name,
+                                                   @RequestParam String email,
+                                                   @RequestParam String text
+                               ) {
+        try{
+            eventService.sendEmail(email,name,text);
+        } catch (Exception e) {
+            return ResponseEntity.unprocessableEntity().body(HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok().build();
     }
 }

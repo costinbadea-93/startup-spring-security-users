@@ -46,7 +46,8 @@ public class EventReservationService {
         if(validationList.size() > 0) {
             throw new CustomException("You have alrady applyed on this event !", HttpStatus.CONFLICT);
         }
-
+        event.setFreePlacesNumber(event.getFreePlacesNumber() - eventReservation.getNumberOfReservedPlaces());
+        eventRepository.save(event);
 
         return eventReservationRepository.save(eventReservation);
     }

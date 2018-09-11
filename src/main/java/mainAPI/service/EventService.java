@@ -182,13 +182,13 @@ public class EventService {
        return result;
    }
 
-    public void sendEmail(String email) throws Exception{
+    public void sendEmail(String email, String name, String text) throws Exception{
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         helper.setTo(email);
-        helper.setText("How are you?");
-        helper.setSubject("Hi");
+        helper.setText(text);
+        helper.setSubject("!INFO");
 
         sender.send(message);
     }
