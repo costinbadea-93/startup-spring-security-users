@@ -1,7 +1,5 @@
 package mainAPI.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
 
 import javax.persistence.*;
@@ -26,18 +24,6 @@ public class User {
 
   @ElementCollection(fetch = FetchType.EAGER)
   List<Role> roles;
-
-  public List<EventReservation> getEventReservations() {
-    return eventReservations;
-  }
-
-  public void setEventReservations(List<EventReservation> eventReservations) {
-    this.eventReservations = eventReservations;
-  }
-
-  @OneToMany(mappedBy = "user")
-  @JsonIgnore
-  private List<EventReservation> eventReservations;
 
   public Integer getId() {
     return id;
